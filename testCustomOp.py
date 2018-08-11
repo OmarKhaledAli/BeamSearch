@@ -25,7 +25,7 @@ def testCustomOp(feedMat, corpus, chars, wordChars):
     print('chars:- ', len(chars))
     print('chars:- ', chars)
     print('\n')
-    decode=word_beam_search_module.word_beam_search(mat, 25, 'Words', 0.0, corpus.encode('utf8'), chars.encode('utf8'), wordChars.encode('utf8'))
+    decode=word_beam_search_module.word_beam_search(mat, 50, 'Words', 0.0, corpus.encode('utf8'), chars.encode('utf8'), wordChars.encode('utf8'))
 
     # feed matrix of shape TxBxC and evaluate TF graph
     res=sess.run(decode, { mat:feedMat })
@@ -75,7 +75,7 @@ def testRealExample(chars):
     "real example using a sample from a HTR dataset"
     dataPath='../data/bentham/'
     corpus=codecs.open(dataPath+'corpus.txt', 'r', 'utf8').read()
-    #chars=codecs.open(dataPath+'chars.txt', 'r', 'utf8').read()
+    chars=codecs.open(dataPath+'chars.txt', 'r', 'utf8').read()
     wordChars=codecs.open(dataPath+'wordChars.txt', 'r', 'utf8').read()
     mat=loadMat(dataPath+'mat_2.csv')
     res=testCustomOp(mat, corpus, chars, wordChars)
@@ -103,7 +103,7 @@ if __name__=='__main__':
     # test custom op
     encodedString = generateChars()
     print(encodedString)
-    testMiniExample(encodedString)
-    #testRealExample(encodedString)
+    #testMiniExample(encodedString)
+    testRealExample(encodedString)
 
 
